@@ -28,29 +28,43 @@ class BookOfRecipes {
     }
 
     findByTime(timeLimit) {
-        let timeLimitArr = ''
+        const timeLimitArr = []
         this.recipeArr.forEach(recipe => {
             if (recipe.time <= timeLimit) {
-                timeLimitArr += recipe.title + ' '
+                timeLimitArr.push(recipe)
+                return
             }
         })
         if (timeLimitArr.length === 0) {
             return console.log('У книзі немає рецептів з таким лімітом часу :(')
+        } else {
+            let resultTime = ''
+            for (let i = 0; i < timeLimitArr.length; i++) {
+                resultTime += timeLimitArr[i].title + ' '
+            }
+            return console.log(resultTime)
         }
-        return console.log(timeLimitArr)
     }
 
     findByIngredient(ingredient) {
-        let ingredientArr = ''
-        this.recipeArr.forEach(recipe => {
-            if (recipe.list.includes(ingredient[0]) && recipe.list.includes(ingredient[1])) {
-                ingredientArr += recipe.title + ' '
+        const ingredientArr = this.recipeArr.filter((recipe) => {
+            for (let i = 0; i < ingredient.length; i++) {
+                if (!recipe.list.includes(ingredient[i])) {
+                    return false
+                }
             }
+            return true
         })
+
         if (ingredientArr.length === 0) {
             return console.log('У книзі немає рецептів з такими інгредієнтами :(')
+        } else {
+            let resultIngredient = ''
+            for (let i = 0; i < ingredientArr.length; i++) {
+                resultIngredient += ingredientArr[i].title + ' '
+            }
+            return console.log(resultIngredient)
         }
-        return console.log(ingredientArr)
     }
 }
 
