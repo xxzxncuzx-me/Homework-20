@@ -32,18 +32,9 @@ class BookOfRecipes {
         this.recipeArr.forEach(recipe => {
             if (recipe.time <= timeLimit) {
                 timeLimitArr.push(recipe)
-                return
             }
         })
-        if (timeLimitArr.length === 0) {
-            return console.log('У книзі немає рецептів з таким лімітом часу :(')
-        } else {
-            let resultTime = ''
-            for (let i = 0; i < timeLimitArr.length; i++) {
-                resultTime += timeLimitArr[i].title + ' '
-            }
-            return console.log(resultTime)
-        }
+        return timeLimitArr
     }
 
     findByIngredient(ingredient) {
@@ -55,16 +46,7 @@ class BookOfRecipes {
             }
             return true
         })
-
-        if (ingredientArr.length === 0) {
-            return console.log('У книзі немає рецептів з такими інгредієнтами :(')
-        } else {
-            let resultIngredient = ''
-            for (let i = 0; i < ingredientArr.length; i++) {
-                resultIngredient += ingredientArr[i].title + ' '
-            }
-            return console.log(resultIngredient)
-        }
+        return ingredientArr
     }
 }
 
@@ -84,5 +66,20 @@ book.addRecipe(fourthValidRecipe)
 book.addRecipe(fifthValidRecipe)
 book.addRecipe(invalidRecipe)
 
-book.findByTime(60)
-book.findByIngredient(['картопля', 'морква'])
+const resultTime = book.findByTime(60)
+const resultIngredient = book.findByIngredient(['картопля', 'морква'])
+
+function message(array) {
+    if (array.length === 0) {
+        return 'За таким запитом рецептів немає :('
+    } else {
+        let messageArray = ''
+        for (let i = 0; i < array.length; i++) {
+            messageArray += array[i].title + ' '
+        }
+        return messageArray
+    }
+}
+
+console.log(message(resultTime))
+console.log(message(resultIngredient))
